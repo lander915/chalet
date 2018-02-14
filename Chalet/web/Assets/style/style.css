@@ -54,6 +54,11 @@ main{
     height: 140px;
 }
 
+#webcam .rounded-circle{
+    width: 200px;
+    height: 200px;
+}
+
 .red{
     color: red;
     font-weight: bold;

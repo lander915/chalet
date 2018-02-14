@@ -6,6 +6,7 @@
 package data;
 
 import domain.Lid;
+import java.sql.Blob;
 import java.util.List;
 
 /**
@@ -19,4 +20,5 @@ public interface LedenRepository {
     public void updateMember(int id, String naam, double geld, double verbruik);
     //addPicture
     public void addMember(String naam, double geld);
+    public void updatePicture(int id, Blob blobdata);
 }

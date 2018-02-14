@@ -6,6 +6,7 @@
 package data;
 
 import domain.Lid;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +25,7 @@ public class MySqlLedenRepository implements LedenRepository{
     private static final String SQL_SELECT_MEMBER_BY_ID = "select * from leden where id = ?";
     private static final String SQL_UPDATE_MEMBER = "UPDATE leden SET naam= ?, geld = geld-?, verbruik = verbruik+? WHERE id = ?";
     private static final String SQL_ADD_MEMBER = "INSERT INTO leden (naam, geld, img) VALUES (?, ?, ?)";
+    private static final String SQL_UPDATE_PICTURE = "UPDATE leden set img = ? WHERE id = ?";
     
     @Override
     public List<Lid> getAllMembers() {
@@ -104,6 +106,7 @@ public class MySqlLedenRepository implements LedenRepository{
             throw new ChaletException("Unable to update member to database.", ex);
         }
     }
+    
 
     @Override
     public void addMember(String naam, double geld) {
@@ -112,7 +115,7 @@ public class MySqlLedenRepository implements LedenRepository{
         {
             prep.setString(1, naam);
             prep.setDouble(2, geld);
-            String imageUrl = "user"+naam;
+            String imageUrl = "default.png";
             prep.setString(3, imageUrl);
             
             prep.executeUpdate();
@@ -123,6 +126,21 @@ public class MySqlLedenRepository implements LedenRepository{
             throw new ChaletException("Unable to add member to database.", ex);
         }
     }
-    
+
+    public void updatePicture(int id, Blob blob) {
+        try(Connection con = MySqlConnection.getConnection();
+            PreparedStatement prep = con.prepareStatement(SQL_UPDATE_PICTURE, PreparedStatement.RETURN_GENERATED_KEYS))
+        {
+            prep.setBlob(1, blob);
+            prep.setDouble(2, id);
+            
+            prep.executeUpdate();
+            
+        }
+        catch (SQLException ex)
+        {
+            throw new ChaletException("Unable to add picture to database.", ex);
+        }
+    }
     
 }

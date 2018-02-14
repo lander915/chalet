@@ -18,7 +18,7 @@
         <header class="jumbotron text-center">
             <h1>Chalet '98</h1>
         </header>
-
+        
         <div class="container">
             <div class="row">
                 <div class="article col-lg-4 col-centered">
@@ -45,7 +45,11 @@
                 <div class="form-group">
                     <label id="foto" for="foto"></label>
                     
-                    <video autoplay></video>
+                    <div id="webcam">
+                    <video id="v" width="300" height="300" class="rounded-circle"></video>
+                    <canvas id="c" style="display:none;" width="300" height="300"></canvas>
+                    </div>
+                    
                 </div>
                 <button type="submit" id="submitMemberChange "class="btn btn-primary">Toevoegen</button>
             </form>
