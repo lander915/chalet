@@ -1,0 +1,101 @@
+@font-face {
+    font-family: 'Permanent Marker';
+    src: url('../fonts/PermanentMarker-Regular.ttf');
+}
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/OpenSans-Regular.ttf');
+}
+
+html{
+    min-height: 100%;
+    position: relative;
+}
+
+header{
+    text-align: center;
+    height: 12rem;
+    display: block;
+}
+
+.jumbotron{
+    background-color: #f48f42;
+    border-radius: 0;
+}
+
+header{
+    cursor: pointer;
+}
+header h1{
+    margin: auto;
+    font-family: 'Permanent Marker';
+    font-size: 6rem;
+}
+
+main{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.col-lg-4{
+    text-align: center;
+     margin-bottom: 3rem;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.rounded-circle{
+    object-fit: cover;
+    width: 140px;
+    height: 140px;
+}
+
+.red{
+    color: red;
+    font-weight: bold;
+}
+
+.orange{
+    background-color: #f48f42;
+    height: 3rem;
+}
+
+footer {
+    padding-left: 0;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
+ul{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+li{
+    display: inline;
+    margin: 1rem;
+}
+li>a{
+    font-size: 1.2rem;
+    color: #212529;
+}
+
+li>a:hover{
+    color: white;
+}
+
+h2>a{
+    color: #212529;
+}
+
+a:hover{
+    color: #f48f42;
+    text-decoration: none;
+}
