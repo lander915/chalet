@@ -26,8 +26,13 @@
                          src="${USER.imageUrl}"
                          alt="Generic placeholder image">
 
-                    <h2>${USER.naam}</h2>
-                    <p class="geld">Euro: ${USER.geld}</p>
+                    <h2><a href="setUser?user=${USER.id}">${USER.naam}</a></h2>
+                            <c:if test="${USER.geld lt 0}">
+                            <p class="red">Euro: ${USER.geld} </p>
+                        </c:if>
+                        <c:if test="${USER.geld ge 0}">
+                            <p>Euro: ${USER.geld}</p>
+                        </c:if>
                     <p><a href="index.jsp">Go back</a></p>
                 </div>
             </div>
@@ -37,7 +42,6 @@
                 <%
                     List<Product> products = (List<Product>) Repositories.getInventarisRepository().getAllProducts();
                     request.getSession().setAttribute("PRODUCTS", products);
-                    System.err.println(products);
                 %>
 
                 <c:forEach var="prod" items="${PRODUCTS}">
@@ -64,9 +68,9 @@
             <div class="container-fluid">
                 <div class="row">
                     <ul>
-                        <li><a href="inventaris.jsp">Inventaris</a></li>
-                        <li><a href="addMember.jsp">Lid Toevoegen</a></li>
-                        <li><a href="addDrink.jsp">Drank Toevoegen</a></li>
+                        <li><a href="pages/inventaris.jsp">Inventaris</a></li>
+                        <li><a href="pages/addMember.jsp">Lid Toevoegen</a></li>
+                        <li><a href="pages/addDrink.jsp">Drank Toevoegen</a></li>
                     </ul>
                 </div>
             </div>

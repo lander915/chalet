@@ -20,7 +20,7 @@ import util.ChaletException;
  */
 public class MySqlInventarisRepository implements InventarisRepository{
 
-    private static final String SQL_SELECT_ALL_PRODUCTS = "select * from inventaris order by aantal desc";
+    private static final String SQL_SELECT_ALL_PRODUCTS = "select * from inventaris order by verbruik desc";
     private static final String SQL_SELECT_PRODUCT_BY_ID = "select * from inventaris where id = ?";
     private static final String SQL_UPDATE_AANTAL = "UPDATE inventaris SET aantal = aantal - ?, verbruik = verbruik + ? WHERE id = ?";
     private static final String SQL_REFILL_PRODUCT = "UPDATE inventaris set aantal = aantal + ? WHERE id = ?";
