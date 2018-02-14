@@ -5,11 +5,13 @@
  */
 package domain;
 
+import java.util.Comparator;
+
 /**
  *
  * @author lander
  */
-public class Product {
+public class Product implements Comparable<Product>{
     
     public int id;
     public String naam;
@@ -70,6 +72,21 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" + "id=" + id + ", naam=" + naam + ", aantal=" + aantal + ", prijs=" + prijs + ", imgUrl=" + imageUrl + '}';
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return this.aantal - o.aantal;
+    }
+    
+    public static class Comparators 
+    {
+            public static Comparator<Product> STOCK = new Comparator<Product>() {
+            @Override
+            public int compare(Product o1, Product o2) {
+                return o1.aantal - o2.aantal;
+            }
+        };
     }
 
     

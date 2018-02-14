@@ -33,8 +33,8 @@
                              src="${lid.imageUrl}"
                              alt="Generic placeholder image">
 
-                        <h2><a href="settings?user=${lid.id}">${lid.naam}</a></h2>
-                            <c:if test="${lid.geld lt 0}">
+                        <h2><a href="setUser?user=${lid.id}">${lid.naam}</a></h2>
+                        <c:if test="${lid.geld lt 0}">
                             <p class="red">Euro: ${lid.geld} </p>
                             <p><a class="btn btn-secondary" href="selectUser?user=${lid.id}" role="button">Gelieve geld te storten</a></p>
                         </c:if>
@@ -54,9 +54,9 @@
                 <div class="container-fluid">
                     <div class="row">
                         <ul>
-                    <li><a href="inventaris.jsp">Inventaris</a></li>
-                    <li><a href="addMember.jsp">Lid Toevoegen</a></li>
-                    <li><a href="addDrink.jsp">Drank Toevoegen</a></li>
+                    <li><a href="pages/inventaris.jsp">Inventaris</a></li>
+                    <li><a href="pages/addMember.jsp">Lid Toevoegen</a></li>
+                    <li><a href="pages/addDrink.jsp">Drank Toevoegen</a></li>
                         </ul>
                     </div>
                 </div>

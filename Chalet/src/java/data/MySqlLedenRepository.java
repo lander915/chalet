@@ -22,7 +22,7 @@ public class MySqlLedenRepository implements LedenRepository{
 
     private static final String SQL_SELECT_ALL_MEMBERS = "select * from leden order by verbruik desc";
     private static final String SQL_SELECT_MEMBER_BY_ID = "select * from leden where id = ?";
-    private static final String SQL_UPDATE_MEMBER = "UPDATE leden SET geld = geld-?, verbruik = verbruik+? WHERE id = ?";
+    private static final String SQL_UPDATE_MEMBER = "UPDATE leden SET naam= ?, geld = geld-?, verbruik = verbruik+? WHERE id = ?";
     private static final String SQL_ADD_MEMBER = "INSERT INTO leden (naam, geld, img) VALUES (?, ?, ?)";
     
     @Override
@@ -86,13 +86,14 @@ public class MySqlLedenRepository implements LedenRepository{
     }
 
     @Override
-    public void updateMember(int id, double prijs) {
+    public void updateMember(int id, String naam, double geld, double verbruik) {
         try(Connection con = MySqlConnection.getConnection();
             PreparedStatement prep = con.prepareStatement(SQL_UPDATE_MEMBER))
         {
-            prep.setDouble(1, prijs);
-            prep.setDouble(2, prijs);
-            prep.setInt(3, id);
+            prep.setString(1, naam);
+            prep.setDouble(2, geld);
+            prep.setDouble(3, verbruik);
+            prep.setInt(4, id);
             
             prep.executeUpdate();
             prep.close();
@@ -100,13 +101,8 @@ public class MySqlLedenRepository implements LedenRepository{
         }
         catch(SQLException ex)
         {
-            throw new ChaletException("Unable to get product from database.", ex);
+            throw new ChaletException("Unable to update member to database.", ex);
         }
-    }
-
-    @Override
-    public void refillMember(int id, double geld) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -121,19 +117,6 @@ public class MySqlLedenRepository implements LedenRepository{
             
             prep.executeUpdate();
             
-            try(ResultSet rs = prep.getGeneratedKeys())
-            {
-                int memberId = -1;
-                
-                if (rs.next())
-                {
-                    memberId = rs.getInt(1);
-                }
-                else
-                {
-                    throw new ChaletException("Unable to add member to database.");
-                }
-            }
         }
         catch (SQLException ex)
         {

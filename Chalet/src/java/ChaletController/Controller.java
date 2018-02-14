@@ -20,12 +20,13 @@ import javax.servlet.http.HttpServletResponse;
  * @author lander
  */
 @WebServlet(name = "Controller", urlPatterns = {
-    "/selectUser" , "/bestel", "/addMember", "/inventaris", "/addDrink", "/refill", "/settings"
+    "/selectUser" , "/bestel", "/addMember", "/inventaris", "/addDrink", "/refill", "/settings", "/setUser"
 })
 public class Controller extends HttpServlet {
 
      // Pages:
     private static final String PAGE_LISTPRODUCTS = "WEB-INF/drankkaart.jsp";
+    private static final String PAGE_USERSETTINGS = "pages/userSettings.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,7 +38,8 @@ public class Controller extends HttpServlet {
                 break;
 
             case "/selectUser":
-                setUser(request, response);
+                getAndSetUser(request, response);
+                request.getRequestDispatcher(PAGE_LISTPRODUCTS).forward(request, response);
                 break;
                 
             case "/addMember":
@@ -46,6 +48,15 @@ public class Controller extends HttpServlet {
             
             case "/refill":
                 refillProduct(request, response);
+                break;
+                
+            case "/setUser":
+                getAndSetUser(request, response);
+                response.sendRedirect(PAGE_USERSETTINGS);
+                break;
+                
+            case "/settings":
+                settingUser(request, response);
                 break;
 
         }
@@ -90,6 +101,13 @@ public class Controller extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    private Lid getAndSetUser(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("user"));
+        Lid l = Repositories.getLedenRepository().getMember(id);
+        request.getSession().setAttribute("USER", l);
+        return l;
+    };
+    
     private void bestel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         int prodId = Integer.parseInt(request.getParameter("prod"));
@@ -100,7 +118,7 @@ public class Controller extends HttpServlet {
         if (l != null) 
         {
         Repositories.getInventarisRepository().updateProduct(p.id, 1);
-        Repositories.getLedenRepository().updateMember(l.id, p.prijs);
+        Repositories.getLedenRepository().updateMember(l.id, l.naam,p.prijs, p.prijs);
         
         request.getSession().setAttribute("USER", null);
         request.getSession().setAttribute("prod", null);
@@ -109,21 +127,10 @@ public class Controller extends HttpServlet {
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
-    private void setUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("user"));
-        Lid l = Repositories.getLedenRepository().getMember(id);
-        
-        request.getSession().setAttribute("USER", l);
-        
-        request.getRequestDispatcher(PAGE_LISTPRODUCTS).forward(request, response);
-    }
-
     private void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String naam = request.getParameter("naam");
         String geldAsString = request.getParameter("geld");
         double geld = Double.parseDouble(geldAsString);
-        
-        System.err.println(naam +" "+geld);
         
         Repositories.getLedenRepository().addMember(naam, geld);
         response.sendRedirect(request.getContextPath() + "/index.jsp");
@@ -131,6 +138,18 @@ public class Controller extends HttpServlet {
 
     private void refillProduct(HttpServletRequest request, HttpServletResponse response) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void settingUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Lid l = (Lid) request.getSession().getAttribute("USER");
+
+        String naam = request.getParameter("naam");
+        String geldAsString = request.getParameter("geld");
+        
+        double geld = Double.parseDouble(geldAsString)*-1;
+        Repositories.getLedenRepository().updateMember(l.id, naam, geld, 0);
+        
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
 }
