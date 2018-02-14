@@ -43,8 +43,9 @@
                     <input type="number" class="form-control" id="geld" name="geld" min="0" value="0">
                 </div>
                 <div class="form-group">
-                    <label for="foto">Upload foto</label>
-                    <p>KOMT LATER</p>
+                    <label id="foto" for="foto"></label>
+                    
+                    <video autoplay></video>
                 </div>
                 <button type="submit" id="submitMemberChange "class="btn btn-primary">Toevoegen</button>
             </form>
@@ -66,5 +67,6 @@
         <script src="../Assets/script/jquery-3.3.1.min.js"></script>    
         <script src="../Assets/script/bootstrap.js"></script>
         <script src="../Assets/script/script.js"></script>
+        <script src="../Assets/script/webcam.js"></script>
     </body>
 </html>
