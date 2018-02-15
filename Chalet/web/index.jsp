@@ -49,19 +49,20 @@
             </div>
 
         </div>
+        
         <footer class="page-footer orange">
-
-                <!--Footer Links-->
-                <div class="container-fluid">
-                    <div class="row">
-                        <ul>
-                    <li><a href="pages/inventaris.jsp">Inventaris</a></li>
-                    <li><a href="pages/addMember.jsp">Lid Toevoegen</a></li>
-                    <li><a href="pages/addDrink.jsp">Drank Toevoegen</a></li>
-                        </ul>
-                    </div>
-                </div>
-    </footer>   
+    <!--Footer Links-->
+    <div class="container-fluid">
+        <div class="row">
+            <ul>
+                <li><a href="pages/inventaris.jsp">Inventaris</a></li>
+                <li><a href="pages/addMember.jsp">Lid Toevoegen</a></li>
+                <li><a href="pages/addDrink.jsp">Drank Toevoegen</a></li>
+                <li><a href="pages/pitta.jsp">Pitta Bestellen</a></li>
+            </ul>
+        </div>
+    </div>
+</footer> 
 
 
 <script src="Assets/script/jquery-3.3.1.min.js"></script>

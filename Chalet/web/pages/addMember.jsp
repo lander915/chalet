@@ -33,18 +33,8 @@
             <button type="submit" class="btn btn-primary">Toevoegen</button>
         </form>
         
-        <footer class="page-footer orange">
-        <!--Footer Links-->
-        <div class="container-fluid">
-            <div class="row">
-                <ul>
-                    <li><a href="inventaris.jsp">Inventaris</a></li>
-                    <li><a href="addMember.jsp">Lid Toevoegen</a></li>
-                    <li><a href="addDrink.jsp">Drank Toevoegen</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+        <%@include file="../WEB-INF/footer.jspf" %>
+        
     <script src="../Assets/script/jquery-3.3.1.min.js"></script>    
         <script src="../Assets/script/bootstrap.js"></script>
         <script src="../Assets/script/script.js"></script>

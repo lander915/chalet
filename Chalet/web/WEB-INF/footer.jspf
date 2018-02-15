@@ -1,0 +1,15 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<footer class="page-footer orange">
+    <!--Footer Links-->
+    <div class="container-fluid">
+        <div class="row">
+            <ul>
+                <li><a href="inventaris.jsp">Inventaris</a></li>
+                <li><a href="addMember.jsp">Lid Toevoegen</a></li>
+                <li><a href="addDrink.jsp">Drank Toevoegen</a></li>
+                <li><a href="pitta.jsp">Pitta Bestellen</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>

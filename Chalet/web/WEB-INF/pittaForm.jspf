@@ -1,0 +1,38 @@
+<div class="row" id="pittaDiv">
+    <form class="col-sm-10 offset-1" id="pittaForm">
+    <label for="naam">Naam:</label>
+    <input type="text" class="form-control col-sm-1" id="naam" name="naam" required="true">
+
+    <label for="soort">Soort: </label>
+    <select for="soort" class="form-control col-sm-2" name="soort">
+        <option value="Kapsalon" default>Kapsalon</option>
+        <option value="BroodjeKebab">Broodje Kebab</option>
+        <option value="DurumKebab">Dürüm Kebab</option>
+        <option value="SchotelKebab">Schotel Kebab</option>
+        <option value="Snacks">Snacks</option>
+    </select>
+
+    <label for="type">Type: </label>
+    <select class="form-control col-sm-1" name="type">  
+        <option value="Lam" default>Lam</option>
+        <option value="Kip">Kip</option>
+        <option value="Mix">Mix</option>
+    </select>
+
+    <label for="saus">Saus: </label>
+    <select class="form-control col-sm-1" name="saus">
+        <option value="Ketchup" default>Ketchup</option>
+        <option value="Mayonaise">1kg mayo</option>
+        <option value="Joppie">Joppie</option>
+        <option value="Cocktail">Cocktail</option>
+        <option value="Andalousse">Andalousse</option>
+        <option value="Looksaus">Looksaus</option>
+        <option value="Tartaar">Tartaar</option>
+    </select>
+
+    <label for="opmerking">Opmerking: </label>
+    <textarea class="form-control col-sm-2" rows="1" id="opmerking"></textarea>
+    
+    <input type="submit"  class="btn btn-success" value="&#10003"></input>
+</form>
+</div>
