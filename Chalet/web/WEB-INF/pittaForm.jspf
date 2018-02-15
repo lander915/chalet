@@ -5,11 +5,12 @@
 
     <label for="soort">Soort: </label>
     <select for="soort" class="form-control col-sm-2" name="soort">
-        <option value="Kapsalon" default>Kapsalon</option>
-        <option value="BroodjeKebab">Broodje Kebab</option>
-        <option value="DurumKebab">Dürüm Kebab</option>
-        <option value="SchotelKebab">Schotel Kebab</option>
-        <option value="Snacks">Snacks</option>
+        <option value="Kapsalon" data-prijs="7.50" default>Kapsalon</option>
+        <option value="BroodjeKebabKlein" data-prijs="5">Broodje Kebab Klein</option>
+        <option value="BroodjeKebabGroot" data-prijs="7">Broodje Kebab Groot</option>
+        <option value="DurumKebab" data-prijs="7">Dürüm Kebab</option>
+        <option value="SchotelKebab" data-prijs="9.50">Schotel Kebab</option>
+        <option value="Snacks" data-prijs="2.50">Snacks</option>
     </select>
 
     <label for="type">Type: </label>

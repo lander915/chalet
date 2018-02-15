@@ -20,7 +20,7 @@
             <h1>Chalet '98</h1>
         </header>
 
-        <h1>Pita bestellen</h1>
+        <h1 id="titel">Pita bestellen</h1>
 
         <div class="container col-sm-12 pittapage">
 
@@ -38,6 +38,7 @@
                         <th>Type</th>
                         <th>Saus</th>
                         <th>Opmerking</th>
+                        <th>Prijs</th>
                         <th>Delete</th>
                     </tr>
                 </thead>

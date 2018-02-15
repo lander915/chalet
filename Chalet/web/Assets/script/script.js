@@ -31,9 +31,13 @@ function UrlExists(url) {
     return http.status !== 404;
 }
 
-var removeFromList = function (){
-    console.log("werkt");
-    console.log($(this).parent().parent().remove());
+var totalPrice = 0;
+var removeFromList = function (){;
+    $(this).parent().parent().remove();
+    var prijs = $(this).parent().parent().find("td:eq(5)").data("prijs");
+    prijs = parseFloat(prijs);
+    totalPrice = totalPrice - prijs;
+    $("#titel").text("Pita bestellen voor "+ totalPrice + "€");
 };
 
 var addToList = function(){
@@ -43,16 +47,19 @@ var addToList = function(){
     var soort = $(this).parent().find("select").val();
     var type = $(this).parent().find("select:eq(1)").val();
     var saus = $(this).parent().find("select:eq(-1)").val();
+    var prijs = $(this).parent().find("select:eq(0)").find(":selected").data("prijs");
+    prijs = parseFloat(prijs);
+    totalPrice = totalPrice + prijs;
     var opmerking =  $(this).parent().find("textarea").val();
     
+    $("#titel").text("Pita bestellen voor "+ totalPrice + "€");
+    
     $("tbody:last-child").append("<tr>");
-    var trString = "<td>"+ naam +"</td>" + "<td>"+ soort +"</td>" + "<td>"+ type +"</td>" + "<td>"+ saus +"</td>" +"<td>"+ opmerking +"</td>" + "<td><button type='button' class='btn btn-danger delPita'>&#10007</button></td>";
+    var trString = "<td>"+ naam +"</td>" + "<td>"+ soort +"</td>" + "<td>"+ type +"</td>" + "<td>"+ saus +"</td>" +"<td>"+ opmerking +"</td>"+"<td data-prijs="+prijs+">"+ prijs +" €</td>" + "<td><button type='button' class='btn btn-danger delPita'>&#10007</button></td>";
     $("tbody tr:last-child").append(trString);
     $("tbody:last-child").append("</tr>");
     
     $("#pittaForm")[0].reset();
-    
-    console.log(opmerking);
 };
 
 
