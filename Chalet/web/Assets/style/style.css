@@ -12,6 +12,7 @@ html{
     position: relative;
 }
 
+
 header{
     text-align: center;
     height: 12rem;
@@ -21,6 +22,7 @@ header{
 .jumbotron{
     background-color: #f48f42;
     border-radius: 0;
+    padding: 2rem;
 }
 
 header{
@@ -111,9 +113,8 @@ a:hover{
     display: none;
 }
 
-form{
+.specialForm{
     z-index: 5;
-    height: 500px;
 }
 
 #container {

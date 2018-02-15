@@ -24,6 +24,7 @@ public class MySqlInventarisRepository implements InventarisRepository{
     private static final String SQL_SELECT_PRODUCT_BY_ID = "select * from inventaris where id = ?";
     private static final String SQL_UPDATE_AANTAL = "UPDATE inventaris SET aantal = aantal - ?, verbruik = verbruik + ? WHERE id = ?";
     private static final String SQL_REFILL_PRODUCT = "UPDATE inventaris set aantal = aantal + ? WHERE id = ?";
+    private static final String SQL_ADD_PRODUCT = "INSERT INTO inventaris (naam, prijs, aantal, img) VALUES (?, ?, ?, ?);";
     
     @Override
     public List<Product> getAllProducts() {
@@ -115,7 +116,7 @@ public class MySqlInventarisRepository implements InventarisRepository{
     @Override
     public void refillProduct(int id, int aantal) {
         try(Connection con = MySqlConnection.getConnection();
-            PreparedStatement prep = con.prepareStatement(SQL_UPDATE_AANTAL))
+            PreparedStatement prep = con.prepareStatement(SQL_REFILL_PRODUCT))
         {
             prep.setInt(1, aantal);
             prep.setInt(2, id);
@@ -127,6 +128,28 @@ public class MySqlInventarisRepository implements InventarisRepository{
         catch(SQLException ex)
         {
             throw new ChaletException("Unable to get product from database.", ex);
+        }
+    }
+
+    @Override
+    public void addProduct(String naam, double prijs, int aantal) {
+        try(Connection con = MySqlConnection.getConnection();
+            PreparedStatement prep = con.prepareStatement(SQL_ADD_PRODUCT))
+        {
+            //naam prijs aantal img
+            prep.setString(1, naam);
+            prep.setDouble(2, prijs);
+            prep.setInt(3, aantal);
+            String imgString = naam+".png";
+            prep.setString(4, imgString);
+            
+            prep.executeUpdate();
+            prep.close();
+            
+        }
+        catch(SQLException ex)
+        {
+            throw new ChaletException("Unable to add product to database.", ex);
         }
     }
 }

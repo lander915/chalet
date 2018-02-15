@@ -32,7 +32,7 @@
                     <div class="article col-lg-4">
                         <img class="rounded-circle"
                              src="Media/${lid.imageUrl}"
-                             alt="Generic placeholder image">
+                             alt="${USER.imageUrl}">
 
                         <h2><a href="setUser?user=${lid.id}">${lid.naam}</a></h2>
                         <c:if test="${lid.geld lt 0}">

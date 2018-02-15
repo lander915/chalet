@@ -19,8 +19,6 @@ function showVideo() {
     canvas.width = width;
     canvas.height = height;
 
-    console.log("bezig");
-
     context = canvas.getContext('2d');
     context.drawImage(video, 0, 0, width, height);
 
@@ -30,7 +28,9 @@ function showVideo() {
 }
 
 function askForPicture(){
-    $(".picture").slideToggle("slow").css("height", "300px");
+    $(".picture").slideToggle("slow");
+    $(".specialForm").css("height", "450px");
+    $(".specialFormTwo").css("height", "620px");
     $('html, body').animate({
 		scrollTop: $("footer").offset().top
 	},1000);
@@ -41,24 +41,11 @@ function askForPicture(){
             // permission granted:
             .then(function (stream) {
                 video.srcObject = stream;
-            $("footer").remove();
-            $(".container").append('<footer class="page-footer orange">'+
-                        '<div class="container-fluid">'+
-                            '<div class="row">'+
-                                '<ul>'+
-                                    '<li><a href="inventaris.jsp">Inventaris</a></li>'+
-                                    '<li><a href="addMember.jsp">Lid Toevoegen</a></li>'+
-                                    '<li><a href="addDrink.jsp">Drank Toevoegen</a></li>'+
-                                '</ul>'+
-                            '</div>'+
-                        '</div>'+
-                    '</footer>');
                 setInterval(function () {
                     if (!state)
                         showVideo();
                 }, 10);
             })
-            // permission denied:
             .catch(function (error) {
                 console.log(error);
                 $("#foto").append('Could not access the camera. Error: ' + error.name);
@@ -73,10 +60,10 @@ function takeSnapShot() {
     state = true;
     $("#v").remove();
     
-    var userName = $("#username").text();
+    var naam = $("#naam").text();
+    if (naam == "") naam = $("#naam").val();
 
-    $("#webcam").append("<a download="+userName+".png href="+canvas.toDataURL('image/png')+" title='profilePic' id='download' ><img class='rounded-circle' src=" + canvas.toDataURL('image/png') + " name = imageUrl ></a>");    
-    console.log($("#webcam>a")[0].click());
+    $("#webcam").append("<a download="+naam+".png href="+canvas.toDataURL('image/png')+" title='profilePic' id='download' ><img class='rounded-circle' src=" + canvas.toDataURL('image/png') + " name = imageUrl ></a>");
     $("#webcam>a").click();
 }
 

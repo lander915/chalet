@@ -35,9 +35,7 @@ import sun.misc.IOUtils;
 @WebServlet(name = "Controller", urlPatterns = {
     "/selectUser", "/bestel", "/addMember", "/inventaris", "/addDrink", "/refill", "/settings", "/setUser"
 })
-@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
-                 maxFileSize=1024*1024*50,      	// 50 MB
-                 maxRequestSize=1024*1024*100)   	// 100 MB
+
 public class Controller extends HttpServlet {
 
     // Pages:
@@ -73,6 +71,10 @@ public class Controller extends HttpServlet {
 
             case "/settings":
                 settingUser(request, response);
+                break;
+                
+            case "/addDrink":
+                addDrink(request, response);
                 break;
 
         }
@@ -161,8 +163,12 @@ public class Controller extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
-    private void refillProduct(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void refillProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int prodId =  Integer.parseInt(request.getParameter("prodId"));
+        int aantal = Integer.parseInt(request.getParameter("aantal"));
+        
+        Repositories.getInventarisRepository().refillProduct(prodId, aantal);
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
     private void settingUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -173,6 +179,16 @@ public class Controller extends HttpServlet {
         double geld = Double.parseDouble(geldAsString) * -1;
         Repositories.getLedenRepository().updateMember(l.id, l.naam, geld, 0);
 
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
+    }
+
+    private void addDrink(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String naam = request.getParameter("naam");
+        double geld = Double.parseDouble(request.getParameter("prijs"));
+        int aantal = Integer.parseInt(request.getParameter("aantal"));
+        System.err.println(naam +" "+geld+" "+aantal);
+        
+        Repositories.getInventarisRepository().addProduct(naam, geld, aantal);
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 

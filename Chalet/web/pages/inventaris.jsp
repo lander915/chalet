@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="../Assets/style/reset.css">
         <link rel="stylesheet" href="../Assets/style/bootstrap.css">
         <link rel="stylesheet" href="../Assets/style/style.css">
+        <link rel="icon" type="image/png" href="../Media/favicon.PNG" />
         <title>Chalet '98</title>
     </head>
     <body>
@@ -55,8 +56,14 @@
 
 
                         <p>Euro: ${prod.prijs}</p>
-
-                        <p><a class="btn btn-secondary" href="../refill?prod=${prod.id}" role="button">Aanvullen</a></p>
+                        
+                        <form class="col-sm-6 offset-sm-3 text-center" action="../refill" method="GET">
+                        <div class="form-group">
+                            <input type="hidden" name="prodId" value="${prod.id}" />
+                            <input type="number" class="form-control" id="aantal" min="0" step="1" name="aantal" placeholder="Vul een aantal in">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Aanvullen</button>
+                        </form>
 
                     </div>
                 </c:forEach>            

@@ -21,19 +21,29 @@
 
         <h1 class="text-center">Drank toevoegen</h1>
 
-        <form class="col-sm-6 offset-sm-3 text-center" action="../addDrink" method="GET">
+        <form class="col-sm-6 offset-sm-3 text-center specialFormTwo" action="../addDrink" method="GET">
             <div class="form-group">
                 <label for="naam">Naam</label>
                 <input type="text" class="form-control" id="naam" name="naam" placeholder="Vul naam in" required>
             </div>
             <div class="form-group">
                 <label for="geld">Prijs</label>
-                <input type="number" class="form-control" id="geld" min="0" name="geld" placeholder="Vul een bedrag in" required>
+                <input type="number" class="form-control" id="prijs" min="0" step="0.01" name="prijs" placeholder="Vul een bedrag in" required>
             </div>
             <div class="form-group">
                 <label for="aantal">Aantal</label>
                 <input type="number" class="form-control" id="aantal" min="0" name="aantal" placeholder="Vul een aantal in" required>
             </div>
+            <a href="#" id="askPicture">Foto Nemen?</a>
+                <div class="form-group picture">
+                    <label id="foto" for="foto"></label>
+                    
+                    <div id="webcam">
+                    <video id="v" width="300" height="300" class="rounded-circle"></video>
+                    <canvas id="c" style="display:none;" width="300" height="300"></canvas>
+                    </div>
+                    
+                </div>
             <button type="submit" class="btn btn-primary">Toevoegen</button>
         </form>
 
@@ -52,5 +62,6 @@
         <script src="../Assets/script/jquery-3.3.1.min.js"></script>    
         <script src="../Assets/script/bootstrap.js"></script>
         <script src="../Assets/script/script.js"></script>
+        <script src="../Assets/script/webcam.js"></script>
     </body>
 </html>

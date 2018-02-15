@@ -24,16 +24,16 @@
                 <div class="article col-lg-4 col-centered">
                     <img class="rounded-circle"
                          src="../Media/${USER.imageUrl}"
-                         alt="Generic placeholder image">
+                         alt="${USER.imageUrl}">
 
-                    <h2 id="username">${USER.naam}</h2>
+                    <h2 id="naam">${USER.naam}</h2>
                     <p class="geld">Euro: ${USER.geld}</p>
-                    <p><a href="index.jsp">Go back</a></p>
+                    <p><a href="../index.jsp">Go back</a></p>
                 </div>
             </div>
             <h1 class="text-center">Lid aanpassen</h1>
 
-            <form class="col-sm-6 offset-sm-3 text-center" action="../settings" method="POST">
+            <form class="col-sm-6 offset-sm-3 text-center specialForm" action="../settings" method="POST">
                 <div class="form-group">
                     <label for="geld">Geld toevoegen</label>
                     <input type="number" class="form-control" id="geld" step="0.01" name="geld" min="0" value="0">
