@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="Assets/style/reset.css">
         <link rel="stylesheet" href="Assets/style/bootstrap.css">
         <link rel="stylesheet" href="Assets/style/style.css">
+        <link rel="icon" type="image/png" href="Media/favicon.PNG" />
         <title>Chalet '98</title>
     </head>
     <body>
@@ -30,7 +31,7 @@
                 <c:forEach var="lid" items="${LEDEN}">
                     <div class="article col-lg-4">
                         <img class="rounded-circle"
-                             src="${lid.imageUrl}"
+                             src="Media/${lid.imageUrl}"
                              alt="Generic placeholder image">
 
                         <h2><a href="setUser?user=${lid.id}">${lid.naam}</a></h2>
@@ -60,7 +61,7 @@
                         </ul>
                     </div>
                 </div>
-    </footer>
+    </footer>   
 
 
 <script src="Assets/script/jquery-3.3.1.min.js"></script>

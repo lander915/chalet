@@ -23,26 +23,23 @@
             <div class="row">
                 <div class="article col-lg-4 col-centered">
                     <img class="rounded-circle"
-                         src="../${USER.imageUrl}"
+                         src="../Media/${USER.imageUrl}"
                          alt="Generic placeholder image">
 
-                    <h2>${USER.naam}</h2>
+                    <h2 id="username">${USER.naam}</h2>
                     <p class="geld">Euro: ${USER.geld}</p>
                     <p><a href="index.jsp">Go back</a></p>
                 </div>
             </div>
             <h1 class="text-center">Lid aanpassen</h1>
 
-            <form class="col-sm-6 offset-sm-3 text-center" action="../settings" method="GET">
-                <div class="form-group">
-                    <label for="naam">Naam veranderen</label>
-                    <input type="text" class="form-control" id="naam" name="naam" value="${USER.naam}">
-                </div>
+            <form class="col-sm-6 offset-sm-3 text-center" action="../settings" method="POST">
                 <div class="form-group">
                     <label for="geld">Geld toevoegen</label>
-                    <input type="number" class="form-control" id="geld" name="geld" min="0" value="0">
+                    <input type="number" class="form-control" id="geld" step="0.01" name="geld" min="0" value="0">
                 </div>
-                <div class="form-group">
+                <a href="#" id="askPicture">Foto Nemen?</a>
+                <div class="form-group picture">
                     <label id="foto" for="foto"></label>
                     
                     <div id="webcam">
@@ -51,7 +48,7 @@
                     </div>
                     
                 </div>
-                <button type="submit" id="submitMemberChange "class="btn btn-primary">Toevoegen</button>
+                <button type="submit" id="submitMemberChange "class="btn btn-primary">Aanpassen</button>
             </form>
 
             <footer class="page-footer orange">

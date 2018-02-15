@@ -5,6 +5,7 @@
  */
 package ChaletController;
 
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import data.Repositories;
 import domain.Lid;
 import domain.Product;
@@ -18,19 +19,25 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import sun.misc.IOUtils;
 
 /**
  *
  * @author lander
  */
 @WebServlet(name = "Controller", urlPatterns = {
-    "/selectUser", "/bestel", "/addMember", "/inventaris", "/addDrink", "/refill", "/settings", "/setUser", "/upload"
+    "/selectUser", "/bestel", "/addMember", "/inventaris", "/addDrink", "/refill", "/settings", "/setUser"
 })
+@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
+                 maxFileSize=1024*1024*50,      	// 50 MB
+                 maxRequestSize=1024*1024*100)   	// 100 MB
 public class Controller extends HttpServlet {
 
     // Pages:
@@ -66,10 +73,6 @@ public class Controller extends HttpServlet {
 
             case "/settings":
                 settingUser(request, response);
-                break;
-
-            case "/upload":
-                processImage(request, response);
                 break;
 
         }
@@ -165,55 +168,12 @@ public class Controller extends HttpServlet {
     private void settingUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Lid l = (Lid) request.getSession().getAttribute("USER");
 
-        String naam = request.getParameter("naam");
         String geldAsString = request.getParameter("geld");
 
         double geld = Double.parseDouble(geldAsString) * -1;
-        Repositories.getLedenRepository().updateMember(l.id, naam, geld, 0);
+        Repositories.getLedenRepository().updateMember(l.id, l.naam, geld, 0);
 
         response.sendRedirect(request.getContextPath() + "/index.jsp");
-    }
-
-    private void processImage(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, SQLException, IOException, ServletException {
-
-        Lid l = (Lid) request.getSession().getAttribute("USER");
-
-        StringBuilder stringBuilder = new StringBuilder();
-        BufferedReader bufferedReader = null;
-        try {
-            String streamLength = request.getHeader("Content-Length");
-            int streamIntLength = Integer.parseInt(streamLength);
-            InputStream inputStream = request.getInputStream();
-            if (inputStream != null) {
-                bufferedReader = new BufferedReader(new InputStreamReader(
-                        inputStream));
-                char[] charBuffer = new char[streamIntLength];
-                int bytesRead = -1;
-                while ((bytesRead = bufferedReader.read(charBuffer)) > 0) {
-                    stringBuilder.append(charBuffer, 0, bytesRead);
-                }
-            } else {
-                stringBuilder.append("");
-            }
-        } catch (IOException ex) {
-            throw ex;
-        }
-        String body = stringBuilder.toString();
-        //System.out.println(body);
-        byte[] bytes = body.getBytes();
-        //System.out.println(StringUtils.newStringUtf16Le(bytes));
-        Blob blobData = new javax.sql.rowset.serial.SerialBlob(bytes);
-        System.err.println(blobData.toString());
-        
-        Repositories.getLedenRepository().updatePicture(l.id, blobData);
-
-        //String data = request.getParameter("data");
-        //data = data.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
-        //data = data.replaceAll("\\+", "%2B");
-        //byte[] byteData = data.getBytes("UTF-8");
-        //Blob blobData = new javax.sql.rowset.serial.SerialBlob(byteData);
-        //Repositories.getLedenRepository().updatePicture(l.id, blobData);
-        //System.err.println(blobData.toString());
     }
 
 }

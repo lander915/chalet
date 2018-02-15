@@ -21,7 +21,7 @@ public class Lid {
         this.id = id;
         this.naam = naam;
         this.geld = geld;
-        this.imageUrl = "Media/"+imageUrl;
+        this.imageUrl = imageUrl;
         this.verbruik = verbruik;
     }
 
@@ -62,7 +62,7 @@ public class Lid {
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = "Media/"+imageUrl;
+        this.imageUrl = imageUrl;
     }
 
     @Override

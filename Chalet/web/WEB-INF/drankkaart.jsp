@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="article col-lg-4 col-centered">
                     <img class="rounded-circle"
-                         src="${USER.imageUrl}"
+                         src="Media/${USER.imageUrl}"
                          alt="Generic placeholder image">
 
                     <h2><a href="setUser?user=${USER.id}">${USER.naam}</a></h2>

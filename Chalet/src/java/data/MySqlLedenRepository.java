@@ -12,7 +12,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+
 import util.ChaletException;
 
 /**
@@ -23,7 +25,7 @@ public class MySqlLedenRepository implements LedenRepository{
 
     private static final String SQL_SELECT_ALL_MEMBERS = "select * from leden order by verbruik desc";
     private static final String SQL_SELECT_MEMBER_BY_ID = "select * from leden where id = ?";
-    private static final String SQL_UPDATE_MEMBER = "UPDATE leden SET naam= ?, geld = geld-?, verbruik = verbruik+? WHERE id = ?";
+    private static final String SQL_UPDATE_MEMBER = "UPDATE leden SET naam= ?, img = ?, geld = geld-?, verbruik = verbruik+? WHERE id = ?";
     private static final String SQL_ADD_MEMBER = "INSERT INTO leden (naam, geld, img) VALUES (?, ?, ?)";
     private static final String SQL_UPDATE_PICTURE = "UPDATE leden set img = ? WHERE id = ?";
     
@@ -34,16 +36,17 @@ public class MySqlLedenRepository implements LedenRepository{
             ResultSet rs = prep.executeQuery())
         {
             List<Lid> leden = new ArrayList<>();
+
             
             while(rs.next())
             {
                 int id = rs.getInt("id");
                 String naam = rs.getString("naam");
                 double geld = rs.getDouble("geld");
-                String img = rs.getString("img");
+                String imgUrl = rs.getString("img");
                 double verbruik = rs.getDouble("verbruik");
                 
-                Lid l = new Lid(id, naam, geld, img, verbruik);
+                Lid l = new Lid(id, naam, geld, imgUrl, verbruik);
                 
                 leden.add(l);
             }
@@ -63,6 +66,7 @@ public class MySqlLedenRepository implements LedenRepository{
         {
             prep.setInt(1, id);
             
+            
             try(ResultSet rs = prep.executeQuery())
             {
                 Lid l = null;
@@ -72,10 +76,10 @@ public class MySqlLedenRepository implements LedenRepository{
                     int LidId = rs.getInt("id");
                     String naam = rs.getString("naam");
                     double geld = rs.getDouble("geld");
-                    String img = rs.getString("img");
+                    String imgUrl = rs.getString("img");
                     double verbruik = rs.getDouble("verbruik");
 
-                    l = new Lid(LidId, naam, geld, img, verbruik);
+                    l = new Lid(LidId, naam, geld, imgUrl, verbruik);
                 }
 
                 return l;
@@ -93,9 +97,11 @@ public class MySqlLedenRepository implements LedenRepository{
             PreparedStatement prep = con.prepareStatement(SQL_UPDATE_MEMBER))
         {
             prep.setString(1, naam);
-            prep.setDouble(2, geld);
-            prep.setDouble(3, verbruik);
-            prep.setInt(4, id);
+            String imgUrl = naam+".png";
+            prep.setString(2, imgUrl);
+            prep.setDouble(3, geld);
+            prep.setDouble(4, verbruik);
+            prep.setInt(5, id);
             
             prep.executeUpdate();
             prep.close();
@@ -124,22 +130,6 @@ public class MySqlLedenRepository implements LedenRepository{
         catch (SQLException ex)
         {
             throw new ChaletException("Unable to add member to database.", ex);
-        }
-    }
-
-    public void updatePicture(int id, Blob blob) {
-        try(Connection con = MySqlConnection.getConnection();
-            PreparedStatement prep = con.prepareStatement(SQL_UPDATE_PICTURE, PreparedStatement.RETURN_GENERATED_KEYS))
-        {
-            prep.setBlob(1, blob);
-            prep.setDouble(2, id);
-            
-            prep.executeUpdate();
-            
-        }
-        catch (SQLException ex)
-        {
-            throw new ChaletException("Unable to add picture to database.", ex);
         }
     }
     

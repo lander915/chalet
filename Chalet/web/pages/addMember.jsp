@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="geld">Geld</label>
-                <input type="number" class="form-control" id="geld" min="0" name="geld" placeholder="Vul een bedrag in">
+                <input type="number" class="form-control" id="geld" min="0" step="0.01" name="geld" placeholder="Vul een bedrag in">
             </div>
             <button type="submit" class="btn btn-primary">Toevoegen</button>
         </form>

@@ -18,7 +18,5 @@ public interface LedenRepository {
     public List<Lid> getAllMembers();
     public Lid getMember(int id);
     public void updateMember(int id, String naam, double geld, double verbruik);
-    //addPicture
     public void addMember(String naam, double geld);
-    public void updatePicture(int id, Blob blobdata);
 }

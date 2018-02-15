@@ -12,7 +12,7 @@ var state = false;
 function showVideo() {
     //var img = document.querySelector('.photo') || document.createElement('img');
     var context;
-    var width = video.offsetWidth,
+    var width = video.offsetWidth+65,
             height = video.offsetHeight;
 
     canvas = canvas || document.createElement('canvas');
@@ -29,14 +29,30 @@ function showVideo() {
     //document.body.appendChild(img);
 }
 
-// use MediaDevices API
-// docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
-if (navigator.mediaDevices) {
+function askForPicture(){
+    $(".picture").slideToggle("slow").css("height", "300px");
+    $('html, body').animate({
+		scrollTop: $("footer").offset().top
+	},1000);
+     
+    if (navigator.mediaDevices) {
     // access the web cam
     navigator.mediaDevices.getUserMedia({video: true})
             // permission granted:
             .then(function (stream) {
                 video.srcObject = stream;
+            $("footer").remove();
+            $(".container").append('<footer class="page-footer orange">'+
+                        '<div class="container-fluid">'+
+                            '<div class="row">'+
+                                '<ul>'+
+                                    '<li><a href="inventaris.jsp">Inventaris</a></li>'+
+                                    '<li><a href="addMember.jsp">Lid Toevoegen</a></li>'+
+                                    '<li><a href="addDrink.jsp">Drank Toevoegen</a></li>'+
+                                '</ul>'+
+                            '</div>'+
+                        '</div>'+
+                    '</footer>');
                 setInterval(function () {
                     if (!state)
                         showVideo();
@@ -48,50 +64,24 @@ if (navigator.mediaDevices) {
                 $("#foto").append('Could not access the camera. Error: ' + error.name);
             });
 }
+}
+// use MediaDevices API
+// docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+
 
 function takeSnapShot() {
     state = true;
     $("#v").remove();
-    $("#webcam").append("<img class='rounded-circle' src=" + canvas.toDataURL('image/png') + ">");
-    dataURItoBlob(canvas.toDataURL('image/png'));
+    
+    var userName = $("#username").text();
 
+    $("#webcam").append("<a download="+userName+".png href="+canvas.toDataURL('image/png')+" title='profilePic' id='download' ><img class='rounded-circle' src=" + canvas.toDataURL('image/png') + " name = imageUrl ></a>");    
+    console.log($("#webcam>a")[0].click());
+    $("#webcam>a").click();
 }
 
-
-function dataURItoBlob(dataURI, callback) {
-    // convert base64 to raw binary data held in a string
-    // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
-    var byteString = atob(dataURI.split(',')[1]);
-
-    // separate out the mime component
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-    // write the bytes of the string to an ArrayBuffer
-    var ab = new ArrayBuffer(byteString.length);
-    var ia = new Uint8Array(ab);
-    for (var i = 0; i < byteString.length; i++) {
-        ia[i] = byteString.charCodeAt(i);
-    }
-
-    // write the ArrayBuffer to a blob, and you're done
-    var bb = new Blob([ab]);
-    console.log(bb);
-
-
-    $.ajax({
-        type: 'POST',
-        url: '../upload',
-        data: bb,
-        processData: false
-    }).done(function (data) {
-        console.log(data);
-    });
-
-    return bb;
-
-}
 
 $(document).ready(function () {
+    $("#askPicture").on("click", askForPicture);
     $("video").on("click", takeSnapShot);
-    //takeSnapshot()
 });

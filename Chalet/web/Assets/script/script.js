@@ -9,6 +9,7 @@ var redirect = function (){
     window.location.replace("http://localhost:8080/Chalet/");
 };
 
+
 $( document ).ready(function() {
     $("header").on("click", redirect);
 });
