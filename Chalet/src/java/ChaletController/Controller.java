@@ -132,9 +132,7 @@ public class Controller extends HttpServlet {
         Lid l = Repositories.getLedenRepository().getMember(id);
         request.getSession().setAttribute("USER", l);
         return l;
-    }
-
-    ;
+    };
     
     private void bestel(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -163,12 +161,12 @@ public class Controller extends HttpServlet {
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
-    private void refillProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void refillProduct(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, ServletException {
         int prodId =  Integer.parseInt(request.getParameter("prodId"));
         int aantal = Integer.parseInt(request.getParameter("aantal"));
         
         Repositories.getInventarisRepository().refillProduct(prodId, aantal);
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
+        response.sendRedirect(request.getContextPath() + "/pages/inventaris.jsp");
     }
 
     private void settingUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
