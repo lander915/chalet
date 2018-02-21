@@ -51,6 +51,7 @@
                 <button type="submit" id="submitMemberChange "class="btn btn-primary">Aanpassen</button>
             </form>
 
+            <%@include file="../WEB-INF/adminModal.jspf" %>
             <%@include file="../WEB-INF/footer.jspf" %>        
         </div>
 

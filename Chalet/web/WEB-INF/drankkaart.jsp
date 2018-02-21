@@ -60,21 +60,24 @@
                 </c:forEach>            
             </div>
 
+                <%@include file="../WEB-INF/adminModal.jspf" %>
 
         </div>
-        <footer class="page-footer orange">
-
-            <!--Footer Links-->
-            <div class="container-fluid">
-                <div class="row">
-                    <ul>
-                        <li><a href="pages/inventaris.jsp">Inventaris</a></li>
-                        <li><a href="pages/addMember.jsp">Lid Toevoegen</a></li>
-                        <li><a href="pages/addDrink.jsp">Drank Toevoegen</a></li>
-                    </ul>
+<footer class="page-footer orange">
+    <!--Footer Links-->
+    <div class="container-fluid">
+        <div class="row">
+            <ul>
+                <div class='adminLink'>
+                <li><a href="pages/inventaris.jsp" data-toggle="modal" data-target="#adminModal">Inventaris</a></li>
+                <li><a href="pages/addMember.jsp" data-toggle="modal" data-target="#adminModal">Lid Toevoegen</a></li>
+                <li><a href="pages/addDrink.jsp" data-toggle="modal" data-target="#adminModal">Drank Toevoegen</a></li>
                 </div>
-            </div>
-        </footer>
+                <li><a href="pages/pita.jsp">Pita Bestellen</a></li>
+            </ul>
+        </div>
+    </div>
+</footer> 
 
         <script src="Assets/script/jquery-3.3.1.min.js"></script>    
         <script src="Assets/script/bootstrap.js"></script>

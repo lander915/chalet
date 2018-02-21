@@ -60,7 +60,7 @@
                         <form class="col-sm-6 offset-sm-3 text-center" action="../refill" method="GET">
                         <div class="form-group">
                             <input type="hidden" name="prodId" value="${prod.id}" />
-                            <input type="number" class="form-control" id="aantal" min="0" step="1" name="aantal" placeholder="Vul een aantal in">
+                            <input type="number" class="form-control" class="aantal" min="0" step="1" name="aantal" placeholder="Vul een aantal in">
                         </div>
                         <button type="submit" class="btn btn-primary">Aanvullen</button>
                         </form>
@@ -70,6 +70,7 @@
             </div>
         </div>
 
+                <%@include file="../WEB-INF/adminModal.jspf" %>
                 <%@include file="../WEB-INF/footer.jspf" %>
         <script src="../Assets/script/jquery-3.3.1.min.js"></script>    
         <script src="../Assets/script/bootstrap.js"></script>

@@ -33,6 +33,7 @@
             <button type="submit" class="btn btn-primary">Toevoegen</button>
         </form>
         
+        <%@include file="../WEB-INF/adminModal.jspf" %>
         <%@include file="../WEB-INF/footer.jspf" %>
         
     <script src="../Assets/script/jquery-3.3.1.min.js"></script>    

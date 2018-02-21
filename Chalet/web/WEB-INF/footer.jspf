@@ -5,10 +5,12 @@
     <div class="container-fluid">
         <div class="row">
             <ul>
-                <li><a href="inventaris.jsp">Inventaris</a></li>
-                <li><a href="addMember.jsp">Lid Toevoegen</a></li>
-                <li><a href="addDrink.jsp">Drank Toevoegen</a></li>
-                <li><a href="pitta.jsp">Pitta Bestellen</a></li>
+                <div class='adminLink'>
+                <li><a href="inventaris.jsp" data-toggle="modal" data-target="#adminModal">Inventaris</a></li>
+                <li><a href="addMember.jsp" data-toggle="modal" data-target="#adminModal">Lid Toevoegen</a></li>
+                <li><a href="addDrink.jsp" data-toggle="modal" data-target="#adminModal">Drank Toevoegen</a></li>
+                </div>
+                <li><a href="pita.jsp">Pita Bestellen</a></li>
             </ul>
         </div>
     </div>

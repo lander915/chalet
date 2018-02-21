@@ -107,6 +107,7 @@ public class MySqlLedenRepository implements LedenRepository{
             prep.close();
             
         }
+        
         catch(SQLException ex)
         {
             throw new ChaletException("Unable to update member to database.", ex);

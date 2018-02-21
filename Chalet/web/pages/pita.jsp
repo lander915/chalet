@@ -47,6 +47,7 @@
 
         </div>
 
+            <%@include file="../WEB-INF/adminModal.jspf" %>
         <%@include file="../WEB-INF/footer.jspf" %>
 
 

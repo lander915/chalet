@@ -13,6 +13,7 @@ public class Repositories
 {
     private static final LedenRepository ledenRepo = new MySqlLedenRepository();
     private static final InventarisRepository invRepo = new MySqlInventarisRepository();
+    private static final FileLog fileLog = new FileLog();
     
     private Repositories()
     {
@@ -26,6 +27,10 @@ public class Repositories
     public static InventarisRepository getInventarisRepository()
     {
         return invRepo;
+    }
+    
+    public static FileLog getFileLog() {
+        return fileLog;
     }
     
 }

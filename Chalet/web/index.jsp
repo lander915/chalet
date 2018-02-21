@@ -34,7 +34,7 @@
                              src="Media/${lid.imageUrl}"
                              alt="${USER.imageUrl}">
 
-                        <h2><a href="setUser?user=${lid.id}">${lid.naam}</a></h2>
+                        <h2 class='adminLink'><a id='setUser' href="setUser?user=${lid.id}" data-toggle="modal" data-target="#adminModal">${lid.naam}</a></h2>
                         <c:if test="${lid.geld lt 0}">
                             <p class="red">Euro: ${lid.geld} </p>
                             <p><a class="btn btn-secondary" href="selectUser?user=${lid.id}" role="button">Gelieve geld te storten</a></p>
@@ -48,6 +48,8 @@
 
             </div>
 
+            <%@include file="WEB-INF/adminModal.jspf" %>
+            
         </div>
         
         <footer class="page-footer orange">
@@ -55,10 +57,12 @@
     <div class="container-fluid">
         <div class="row">
             <ul>
-                <li><a href="pages/inventaris.jsp">Inventaris</a></li>
-                <li><a href="pages/addMember.jsp">Lid Toevoegen</a></li>
-                <li><a href="pages/addDrink.jsp">Drank Toevoegen</a></li>
-                <li><a href="pages/pitta.jsp">Pitta Bestellen</a></li>
+                <div class='adminLink'>
+                <li><a href="pages/inventaris.jsp" data-toggle="modal" data-target="#adminModal">Inventaris</a></li>
+                <li><a href="pages/addMember.jsp" data-toggle="modal" data-target="#adminModal">Lid Toevoegen</a></li>
+                <li><a href="pages/addDrink.jsp" data-toggle="modal" data-target="#adminModal">Drank Toevoegen</a></li>
+                </div>
+                <li><a href="pages/pita.jsp">Pita Bestellen</a></li>
             </ul>
         </div>
     </div>
