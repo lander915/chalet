@@ -25,7 +25,7 @@ public class MySqlLedenRepository implements LedenRepository{
 
     private static final String SQL_SELECT_ALL_MEMBERS = "select * from leden order by verbruik desc";
     private static final String SQL_SELECT_MEMBER_BY_ID = "select * from leden where id = ?";
-    private static final String SQL_UPDATE_MEMBER = "UPDATE leden SET naam= ?, img = ?, geld = geld-?, verbruik = verbruik+? WHERE id = ?";
+    private static final String SQL_UPDATE_MEMBER = "UPDATE leden SET naam= ?, geld = geld-?, verbruik = verbruik+? WHERE id = ?";
     private static final String SQL_ADD_MEMBER = "INSERT INTO leden (naam, geld, img) VALUES (?, ?, ?)";
     private static final String SQL_UPDATE_PICTURE = "UPDATE leden set img = ? WHERE id = ?";
     
@@ -97,11 +97,9 @@ public class MySqlLedenRepository implements LedenRepository{
             PreparedStatement prep = con.prepareStatement(SQL_UPDATE_MEMBER))
         {
             prep.setString(1, naam);
-            String imgUrl = naam+".png";
-            prep.setString(2, imgUrl);
-            prep.setDouble(3, geld);
-            prep.setDouble(4, verbruik);
-            prep.setInt(5, id);
+            prep.setDouble(2, geld);
+            prep.setDouble(3, verbruik);
+            prep.setInt(4, id);
             
             prep.executeUpdate();
             prep.close();
@@ -116,13 +114,12 @@ public class MySqlLedenRepository implements LedenRepository{
     
 
     @Override
-    public void addMember(String naam, double geld) {
+    public void addMember(String naam, double geld, String imageUrl) {
         try(Connection con = MySqlConnection.getConnection();
             PreparedStatement prep = con.prepareStatement(SQL_ADD_MEMBER, PreparedStatement.RETURN_GENERATED_KEYS))
         {
             prep.setString(1, naam);
             prep.setDouble(2, geld);
-            String imageUrl = "default.png";
             prep.setString(3, imageUrl);
             
             prep.executeUpdate();
@@ -131,6 +128,25 @@ public class MySqlLedenRepository implements LedenRepository{
         catch (SQLException ex)
         {
             throw new ChaletException("Unable to add member to database.", ex);
+        }
+    }
+    
+    @Override
+    public void updatePicture(int id, String imageUrl) {
+        try(Connection con = MySqlConnection.getConnection();
+            PreparedStatement prep = con.prepareStatement(SQL_UPDATE_PICTURE))
+        {
+            prep.setString(1, imageUrl);
+            prep.setInt(2, id);
+            
+            prep.executeUpdate();
+            prep.close();
+            
+        }
+        
+        catch(SQLException ex)
+        {
+            throw new ChaletException("Unable to update member to database.", ex);
         }
     }
     

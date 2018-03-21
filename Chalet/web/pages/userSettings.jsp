@@ -40,6 +40,7 @@
                 </div>
                 <a href="#" id="askPicture">Foto Nemen?</a>
                 <div class="form-group picture">
+                    <input type="hidden" id="picture" name="picture" value="false">
                     <label id="foto" for="foto"></label>
                     
                     <div id="webcam">

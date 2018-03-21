@@ -5,34 +5,24 @@
  */
 package ChaletController;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 import data.Repositories;
 import domain.Lid;
 import domain.Product;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.Blob;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import javax.xml.bind.DatatypeConverter;
-import sun.misc.IOUtils;
+
 
 /**
  *
@@ -161,15 +151,22 @@ public class Controller extends HttpServlet {
         }
 
         request.getSession().setAttribute("ADMIN", null);
-        request.getRequestDispatcher("index.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
     private void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String naam = request.getParameter("naam");
         String geldAsString = request.getParameter("geld");
         double geld = Double.parseDouble(geldAsString);
-
-        Repositories.getLedenRepository().addMember(naam, geld);
+        String picture = request.getParameter("picture");
+        
+        if(picture.equals("true")){
+            String imageUrl = naam+".png";
+            Repositories.getLedenRepository().addMember(naam, geld, imageUrl);
+        }
+        else{
+            Repositories.getLedenRepository().addMember(naam, geld, "default.png");
+        }
         
         Repositories.getFileLog().logAction("addUser," + naam + "," + geldAsString + "," + LocalDateTime.now());
         request.getSession().setAttribute("ADMIN", null);
@@ -181,14 +178,20 @@ public class Controller extends HttpServlet {
         int aantal = Integer.parseInt(request.getParameter("aantal"));
         
         Repositories.getInventarisRepository().refillProduct(prodId, aantal);
-        Repositories.getFileLog().logAction("refullProduct," + prodId + "," + aantal + "," + LocalDateTime.now());
+        Repositories.getFileLog().logAction("refillProduct," + prodId + "," + aantal + "," + LocalDateTime.now());
         response.sendRedirect(request.getContextPath() + "/pages/inventaris.jsp");
     }
 
     private void settingUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Lid l = (Lid) request.getSession().getAttribute("USER");
+        String picture = request.getParameter("picture");
 
         String geldAsString = request.getParameter("geld");
+        
+        if(picture.equals("true")){
+            String imageUrl = l.naam+".png";
+            Repositories.getLedenRepository().updatePicture(l.id, imageUrl);
+        }
 
         double geld = Double.parseDouble(geldAsString) * -1;
         Repositories.getLedenRepository().updateMember(l.id, l.naam, geld, 0);
@@ -203,8 +206,17 @@ public class Controller extends HttpServlet {
         double geld = Double.parseDouble(request.getParameter("prijs"));
         int aantal = Integer.parseInt(request.getParameter("aantal"));
         System.err.println(naam +" "+geld+" "+aantal);
+        String picture = request.getParameter("picture");
         
-        Repositories.getInventarisRepository().addProduct(naam, geld, aantal);
+         if(picture.equals("true")){
+            String imageUrl = naam+".png";
+            Repositories.getInventarisRepository().addProduct(naam, geld, aantal, imageUrl);
+        }
+        else{
+            Repositories.getInventarisRepository().addProduct(naam, geld, aantal, "default.png");
+        }
+        
+        
         Repositories.getFileLog().logAction("addDrink," + naam + "," + geld + "," + aantal + "," + LocalDateTime.now());
         request.getSession().setAttribute("ADMIN", null);
         response.sendRedirect(request.getContextPath() + "/index.jsp");

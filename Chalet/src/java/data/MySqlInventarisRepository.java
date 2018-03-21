@@ -132,7 +132,7 @@ public class MySqlInventarisRepository implements InventarisRepository{
     }
 
     @Override
-    public void addProduct(String naam, double prijs, int aantal) {
+    public void addProduct(String naam, double prijs, int aantal, String imageUrl) {
         try(Connection con = MySqlConnection.getConnection();
             PreparedStatement prep = con.prepareStatement(SQL_ADD_PRODUCT))
         {
@@ -140,8 +140,7 @@ public class MySqlInventarisRepository implements InventarisRepository{
             prep.setString(1, naam);
             prep.setDouble(2, prijs);
             prep.setInt(3, aantal);
-            String imgString = naam+".png";
-            prep.setString(4, imgString);
+            prep.setString(4, imageUrl);
             
             prep.executeUpdate();
             prep.close();

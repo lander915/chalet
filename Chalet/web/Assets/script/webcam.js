@@ -62,6 +62,8 @@ function takeSnapShot() {
     
     var naam = $("#naam").text();
     if (naam == "") naam = $("#naam").val();
+    
+    $("#picture").attr("value", "true")
 
     $("#webcam").append("<a download="+naam+".png href="+canvas.toDataURL('image/png')+" title='profilePic' id='download' ><img class='rounded-circle' src=" + canvas.toDataURL('image/png') + " name = imageUrl ></a>");
     $("#webcam a")[0].click();

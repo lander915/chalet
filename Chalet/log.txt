@@ -1,1 +1,19 @@
 
+refullProduct,4,1,2018-02-21T14:59:46.278
+bestel,1,Lander,1.5,2018-02-21T14:59:51.871
+settingUser,1,Lander,0.25,2018-02-21T15:00:03.511
+addUser,test,20,2018-03-21T18:22:07.767
+bestel,1,Lander,1.5,2018-03-21T18:34:21.970
+addUser,test,10,2018-03-21T18:34:37.510
+addUser,testje,55,2018-03-21T19:03:20.746
+bestel,17,testje,1.5,2018-03-21T19:03:53.912
+addUser,testjee,10,2018-03-21T19:10:33.727
+addUser,qldfjq,0.01,2018-03-21T19:12:35.917
+addUser,test1,55,2018-03-21T19:17:47.448
+addUser,test2,52,2018-03-21T19:18:03.705
+settingUser,20,test1,0,2018-03-21T19:18:45.501
+settingUser,20,test1,0,2018-03-21T19:31:06.444
+bestel,1,Lander,1.5,2018-03-21T19:31:46.298
+bestel,3,Tuur,1.5,2018-03-21T19:31:50.577
+addDrink,biertjes,0.55,52,2018-03-21T19:35:16.024
+addDrink,iertjes2,0.05,58,2018-03-21T19:36:00.110

@@ -19,5 +19,5 @@ public interface InventarisRepository {
     public void updateProduct(int id, int aantal);
     public void deleteProduct(int id);
     public void refillProduct(int id, int aantal);
-    public void addProduct(String naam, double prijs, int aantal);
+    public void addProduct(String naam, double prijs, int aantal, String imageUrl);
 }

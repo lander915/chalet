@@ -18,8 +18,9 @@ import util.ChaletException;
  */
 public class FileLog {
 
+    //private static final String FILE = "C:\\Users\\Lander\\SkyDrive\\ChaletGithub\\chalet\\Chalet\\log.txt";
     private static final String FILE = "C:\\Users\\lande\\OneDrive\\ChaletGithub\\chalet\\Chalet\\log.txt";
-
+    
     public void logAction(String data) {
         System.err.println(data);
 

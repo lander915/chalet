@@ -18,5 +18,6 @@ public interface LedenRepository {
     public List<Lid> getAllMembers();
     public Lid getMember(int id);
     public void updateMember(int id, String naam, double geld, double verbruik);
-    public void addMember(String naam, double geld);
+    public void addMember(String naam, double geld, String imageUrl);
+    public void updatePicture(int id, String imageUrl);
 }
